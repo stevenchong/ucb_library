@@ -27,8 +27,9 @@ capture.output(print(list_column_names), file = "My New File2.txt")
 # Output number of columns in each file to a text file
 capture.output(summary(list_column_names), file = "My New File.txt")
 
-## Use the text files to manually separate the Excel files into different folders based 
-## on the number of columns
+## Use the text files to separate the Excel files into different folders based 
+## on the number of columns. Manual edits will need to be done on the spreadsheets to ensure
+## the header rows are on the top of each spreadsheet.
 
 
 ####  8-column files
