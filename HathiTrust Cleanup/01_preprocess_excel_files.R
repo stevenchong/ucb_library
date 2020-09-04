@@ -13,8 +13,10 @@ library(readxl)
 # Read in Excel files and combine them (works for 8-column files)
 list_excel_files <- list.files(full.names = TRUE, pattern = ".xlsx")
 
-df_excel_files <- sapply(list_excel_files, read_excel, simplify = FALSE) %>%
-  bind_rows() # remove this line when reading in the 10-column files
+df_excel_files <- sapply(list_excel_files, read_excel, simplify = FALSE) 
+
+#%>%
+#  bind_rows() # remove this line when reading in the 10-column files
 
 
 list_column_names <- sapply(df_excel_files, colnames)
@@ -24,10 +26,10 @@ df_column_names <- data.frame(matrix(unlist(list_column_names), nrow=length(list
 write.csv(df_column_names, file = "hathi_no_oclc_column_names.csv")
 
 # Output column names to a text file
-capture.output(print(list_column_names), file = "My New File2.txt")
+capture.output(print(list_column_names), file = "column_names.txt")
 
 # Output number of columns in each file to a text file
-capture.output(summary(list_column_names), file = "My New File.txt")
+capture.output(summary(list_column_names), file = "number_of_columns.txt")
 
 ## Use the text files to separate the Excel files into different folders based 
 ## on the number of columns. Manual edits will need to be done on the spreadsheets to ensure
@@ -78,3 +80,28 @@ df_excel_files_merged_oclcs$OCLC <- gsub('\\.', '', df_excel_files_merged_oclcs$
 df_excel_files_merged_oclcs$OCLC <- gsub('E.*', '', df_excel_files_merged_oclcs$OCLC)
 
 write.csv(df_excel_files_merged_oclcs, file = "hathi_10_columns.csv", row.names = FALSE)
+
+
+####  11-column files
+## Read in the 11-column files
+list_excel_files <- list.files(full.names = TRUE, pattern = ".xlsx")
+
+# Read in all columns as text (characters)
+df_excel_files <- sapply(list_excel_files, read_excel, simplify = FALSE, col_types = "text") %>%
+  bind_rows()
+
+# Remove all of the notes columns
+df_excel_files_no_notes <- df_excel_files %>%
+  select (1:9)
+
+# Remove all NA's from the data frame
+df_excel_files_no_notes[is.na(df_excel_files_no_notes)] = ""
+
+# Clean OCLC numbers (remove underscores, periods, and numbers after "E")
+df_excel_files_no_notes$OCLC <- gsub('_', '', df_excel_files_no_notes$OCLC)
+
+df_excel_files_no_notes$OCLC <- gsub('\\.', '', df_excel_files_no_notes$OCLC)
+
+df_excel_files_no_notes$OCLC <- gsub('E.*', '', df_excel_files_no_notes$OCLC)
+
+write.csv(df_excel_files_no_notes, file = "hathi_11_columns.csv", row.names = FALSE)

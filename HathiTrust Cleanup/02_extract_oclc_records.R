@@ -7,11 +7,14 @@
 library(tidyverse)
 
 ## Combine all of the output CSV files
-df_9_column_csvs <- read.csv(file = "hathi_all_9_columns.csv", stringsAsFactors = FALSE)
+df_9_column_csvs <- read.csv(file = "hathi_9_columns.csv", stringsAsFactors = FALSE, colClasses = "character")
 
-df_10_column_csvs <- read.csv(file = "hathi_10_columns.csv", stringsAsFactors = FALSE)
+df_10_column_csvs <- read.csv(file = "hathi_10_columns.csv", stringsAsFactors = FALSE, colClasses = "character")
 
-df_combined_csvs <- bind_rows(df_9_column_csvs, df_10_column_csvs) %>%
+df_11_column_csvs <- read.csv(file = "hathi_11_columns.csv", stringsAsFactors = FALSE, colClasses = "character")
+
+
+df_combined_csvs <- bind_rows(df_9_column_csvs, df_10_column_csvs, df_11_column_csvs) %>%
   filter(OskiCat.Record != "") %>%
   distinct()
 
