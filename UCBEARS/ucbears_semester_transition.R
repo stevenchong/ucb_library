@@ -1,18 +1,21 @@
 library (tidyverse)
 library (readxl)
 
-#Change the following line to the current semester. Note that it is case sensitive and should match the sheet names in Peter and Lillian's spreadsheets
-current_semester = "Spring 2025"
+#Change the following line to the prior semester. Note that it is case sensitive and should match the sheet names in Peter's spreadsheet
+last_semester = "Spring 2025"
+
+#Change the following line to the current semester. Note that it is case sensitive and should match the sheet names in Lillian's spreadsheet
+current_semester = "Summer 2025"
 
 
 ### Find this semester's items to pull (Lillian's list). Change the sheet name to the current semester
-df_this_semester <- read_xlsx("Current UC Bears - (titles from a previous semester that are used again).xlsx" , sheet = "Summer 2025") %>%
+df_this_semester <- read_xlsx("Current UC Bears - (titles from a previous semester that are used again).xlsx" , sheet = current_semester) %>%
   { filter(. , grepl("ucbears", `UCBEARS URL (any term)`)) } %>% # filter rows to only those that have ucbears URLs
   select (3) %>%
   distinct
 
 ### Find last semester's items to reshelve (Peter's list). Change the sheet name to last semester
-df_last_semester <- read_xlsx("eReserve pull list.xlsx", sheet = current_semester ) %>%
+df_last_semester <- read_xlsx("eReserve pull list.xlsx", sheet = last_semester ) %>%
   select ("MMS ID" = 1) %>%
   distinct
 
@@ -22,7 +25,7 @@ df_reshelve <- anti_join(df_last_semester, df_this_semester) %>%
 
 ### Clean up reshelve list to display only items that were actually pulled. Change the sheet name to last semester
 
-df_pull_list <- read_xlsx("eReserve pull list.xlsx", sheet = current_semester ) %>%
+df_pull_list <- read_xlsx("eReserve pull list.xlsx", sheet = last_semester ) %>%
   select ("MMS ID" = 1, 2:13)
 
 df_reshelve_cleaned <- merge(x= df_reshelve, y=df_pull_list, all.x = TRUE)
