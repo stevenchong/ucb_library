@@ -14,7 +14,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 </xsl:template>
 
 <xsl:template name="bodyStyleCss">
-font-family: arial; color:#333; margin:0; padding:0em; font-size:80% 
+font-family: arial; color:#333; margin:0; padding:0em; font-size:100% 
 </xsl:template>
 
 <xsl:template name="listStyleCss">
