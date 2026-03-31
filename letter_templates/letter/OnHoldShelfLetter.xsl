@@ -33,7 +33,7 @@
 								The library material you recently requested has been delivered and is ready for pickup. This material may be picked up at the
 								
 								<xsl:choose>
-									<xsl:when test="/notification_data/request/delivery_address = 'Doe Library'"> <b><font size = '4'> "Main Circulation Desk</font></b>.
+									<xsl:when test="/notification_data/request/delivery_address = 'Doe Library'"> <b><font size = '4'> Main Circulation Desk</font></b>.
 								</xsl:when>
 									<xsl:otherwise>
 										<b><font size = '4'><xsl:value-of select="/notification_data/request/delivery_address"/></font></b>.
