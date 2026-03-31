@@ -7,13 +7,19 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:template name="recordTitle">
 			<p/>
 			<div class="recordTitle">
-				<span class="spacer_after_1em">&#160;&#160;<b>Title: </b>  <xsl:value-of select="notification_data/phys_item_display/title"/></span>
+				<span class="spacer_after_1em">
+				    <xsl:if test="not(/notification_data/general_data/letter_name = 'On Hold Shelf Letter')">&#160;&#160;</xsl:if>
+				    <b>Title: </b>  <xsl:value-of select="notification_data/phys_item_display/title"/>
+				</span>
 			</div>
 			<p/>
 			<xsl:if test="notification_data/phys_item_display/author !=''">
 				<div class="">
 					<span class="spacer_after_1em">
-						<span class="recordAuthor">&#160;&#160;<b>@@by@@ </b> <xsl:value-of select="notification_data/phys_item_display/author"/></span>
+						<span class="recordAuthor">
+						    <xsl:if test="not(/notification_data/general_data/letter_name = 'On Hold Shelf Letter')">&#160;&#160;</xsl:if>
+						    <b>@@by@@ </b> <xsl:value-of select="notification_data/phys_item_display/author"/>
+						</span>
 					</span>
 				</div>
 			</xsl:if>
@@ -29,7 +35,6 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				</xsl:if>
 			</xsl:if>
 			
-<!--			<xsl:if test="/notification_data/phys_item_display/call_number !='' or /notification_data/general_data/letter_name != 'Hold Shelf Request Slip Letter' or /notification_data/general_data/letter_name != 'Resource Request Slip Letter' or /notification_data/general_data/letter_name != 'Transit Letter'" > -->
 			<p/>
 			<xsl:if test="/notification_data/phys_item_display/call_number !='' and /notification_data/general_data/letter_name != ('Hold Shelf Request Slip Letter' or 'Resource Request Slip Letter' or 'Transit Letter')" >
 			
@@ -44,7 +49,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			<xsl:if test="/notification_data/phys_item_display/barcode !=''">
 				<div class="">
 					<span class="spacer_after_1em">
-						<span class="volumeIssue">&#160;&#160;<b>Barcode: </b><xsl:value-of select="/notification_data/phys_item_display/barcode"/></span>
+						<span class="volumeIssue">
+						    <xsl:if test="not(/notification_data/general_data/letter_name = 'On Hold Shelf Letter')">&#160;&#160;</xsl:if>
+						<b>Barcode: </b><xsl:value-of select="/notification_data/phys_item_display/barcode"/></span>
 					</span>
 				</div>
 			</xsl:if>
