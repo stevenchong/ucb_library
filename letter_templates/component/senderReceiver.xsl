@@ -164,40 +164,47 @@
 								<xsl:call-template name="listStyleCss"/>
 								<!-- style.xsl -->
 							</xsl:attribute>
-							<tr>
-								<td>
-									<xsl:value-of select="name"/>
-								</td>
-							</tr>
-							<xsl:choose>
-								<xsl:when test="not(name = address/line1)">
-									<tr>
-										<td>
-											<xsl:value-of select="address/line1"/>
-										</td>
-									</tr>
-								</xsl:when>
-							</xsl:choose>
-							<tr>
-								<td>
-									<xsl:value-of select="address/line2"/>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<xsl:value-of select="address/city"/>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<xsl:value-of select="address/postal_code"/>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<xsl:value-of select="address/country"/>
-								</td>
-							</tr>
+							
+							<xsl:if test="not(/notification_data/general_data/letter_name = 'On Hold Shelf Letter')">	
+
+							    <tr>
+								    <td>
+									    <xsl:value-of select="name"/>
+								    </td>
+							    </tr>
+							  
+							    
+							    <xsl:choose>
+								    <xsl:when test="not(name = address/line1)">
+									    <tr>
+										    <td>
+											    <xsl:value-of select="address/line1"/>
+							    			</td>
+								    	</tr>
+								    </xsl:when>
+							    </xsl:choose>
+							    <tr>
+								    <td>
+								    	<xsl:value-of select="address/line2"/>
+							    	</td>
+							    </tr>
+							    <tr>
+								    <td>
+									    <xsl:value-of select="address/city"/>
+								    </td>
+							    </tr>
+							    <tr>
+								    <td>
+									    <xsl:value-of select="address/postal_code"/>
+			    					</td>
+				    			</tr>
+					    		<tr>
+						    		<td>
+							    		<xsl:value-of select="address/country"/>
+							    	</td>
+						    	</tr>
+							</xsl:if>  
+							
 						</table>
 					</xsl:for-each>
 				</td>
