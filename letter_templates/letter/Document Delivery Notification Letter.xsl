@@ -15,7 +15,7 @@
 	<xsl:variable name="fileUploaded" select="/notification_data/file_uploaded"/>
 	<xsl:template match="/">
 		<html>
-			<xsl:if test="notification_data/languages/string"> 
+			<xsl:if test="notification_data/languages/string">
 				<xsl:attribute name="lang">
 					<xsl:value-of select="notification_data/languages/string"/>
 				</xsl:attribute>
@@ -38,55 +38,222 @@
 				<div class="messageArea">
 					<div class="messageBody">
 						<table role='presentation' cellspacing="0" cellpadding="5" border="0">
-							<tr><td></td></tr>
 							<tr>
-								<td>@@your_request@@.</td>
+								<td/>
 							</tr>
 							<tr>
-								<td>@@title@@: <xsl:value-of select="notification_data/phys_item_display/title"/>
+								<td>@@your_request@@</td>
+							</tr>
+							<tr>
+								<td/>
+							</tr>
+							
+							<!--Article Title-->
+							<xsl:if test="/notification_data/resource_sharing_request/format='DIGITAL' ">
+								<xsl:if test="/notification_data/resource_sharing_request/flat_d/material_type='Article' ">
+									<tr>
+										<td>
+											@@title@@: 
+											<xsl:value-of select="/notification_data/resource_sharing_request/title"/>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											Item title:
+												<xsl:value-of select="/notification_data/resource_sharing_request/journal_title"/>
+										</td>
+									</tr>
+									
+									
+								</xsl:if>
+							</xsl:if>
+							
+							<!--Chapter Title-->							
+							<xsl:if test="/notification_data/resource_sharing_request/format='DIGITAL' ">
+								<xsl:if test="/notification_data/resource_sharing_request/flat_d/material_type='Book' ">
+									<tr>
+										<td>
+											@@title@@: 
+											<xsl:value-of select="/notification_data/resource_sharing_request/flat_d/chapter"/>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											Item title:
+												<xsl:value-of select="/notification_data/resource_sharing_request/flat_d/title"/>
+										</td>
+									</tr>
+									
+									
+								</xsl:if>
+							</xsl:if>
+							
+							
+<!--							
+							
+							<tr>
+								<td>@@title@@: <xsl:value-of select="/notification_data/resource_sharing_request/flat_d/chapter"/>
+								</td>
+							</tr>
+
+							<xsl:choose>
+								<xsl:when test="notification_data/incoming_request/journal_title != ''">
+									<tr>
+										<td>
+											Item title:
+												<xsl:value-of select="notification_data/incoming_request/journal_title"/>
+										</td>
+									</tr>
+								</xsl:when>
+								<xsl:otherwise>
+									<tr>
+										<td>Item title: 
+												<xsl:value-of select="/notification_data/phys_item_display/title"/>
+										</td>
+									</tr>
+								</xsl:otherwise>
+							</xsl:choose>
+-->							
+							<xsl:if test="/notification_data/resource_sharing_request/flat_d/chapter_author != '' ">
+								<tr>
+									<td>Article/Chapter author: <xsl:value-of select="/notification_data/resource_sharing_request/flat_d/chapter_author"/>
+									</td>
+								</tr>
+							</xsl:if>
+							
+							<!-- For Articles -->
+							
+							<xsl:if test="/notification_data/resource_sharing_request/flat_d/volume != '' ">
+								<tr>
+									<td>Volume: <xsl:value-of select="/notification_data/resource_sharing_request/flat_d/volume"/>
+									</td>
+								</tr>
+							</xsl:if>
+							
+							<xsl:if test="/notification_data/resource_sharing_request/flat_d/issue != '' ">
+								<tr>
+									<td>Issue: <xsl:value-of select="/notification_data/resource_sharing_request/flat_d/issue"/>
+									</td>
+								</tr>
+							</xsl:if>
+							
+							<xsl:if test="/notification_data/phys_item_display/publication_date != '' ">
+								<tr>
+									<td>Publication Date: <xsl:value-of select="/notification_data/phys_item_display/publication_date"/>
+									</td>
+								</tr>
+							</xsl:if>	
+
+							<!-- For Chapters -->
+							<xsl:if test="/notification_data/resource_sharing_request/flat_d/volume_bk != '' ">
+								<tr>
+									<td>Volume: <xsl:value-of select="/notification_data/resource_sharing_request/flat_d/volume_bk"/>
+									</td>
+								</tr>
+							</xsl:if>	
+							
+							
+							
+							
+							<xsl:if test="/notification_data/resource_sharing_request/flat_d/pages != '' ">
+								<tr>
+									<td>Pages: <xsl:value-of select="/notification_data/resource_sharing_request/flat_d/pages"/>
+									</td>
+								</tr>
+							</xsl:if>				
+							
+							<xsl:if test="/notification_data/resource_sharing_request/flat_d/pages_normalized != '' and /notification_data/resource_sharing_request/flat_d/pages = ''">
+								<tr>
+									<td>Pages: <xsl:value-of select="/notification_data/resource_sharing_request/flat_d/pages_normalized"/>
+									</td>
+								</tr>
+							</xsl:if>
+
+							
+							
+							<xsl:if test="notification_data/resource_sharing_request/flat_d/author != '' ">
+								<tr>
+									<td>Item author: <xsl:value-of select="/notification_data/resource_sharing_request/flat_d/author"/>
+									</td>
+								</tr>
+							</xsl:if>
+							<xsl:if test="/notification_data/resource_sharing_request/flat_d/publisher != '' ">
+								<tr>
+									<td>Publisher: <xsl:value-of select="/notification_data/resource_sharing_request/flat_d/publisher"/>
+									</td>
+								</tr>
+							</xsl:if>
+							<xsl:if test="notification_data/resource_sharing_request/flat_d/isbn != '' ">
+								<tr>
+									<td>ISBN: <xsl:value-of select="/notification_data/resource_sharing_request/flat_d/isbn"/>
+									</td>
+								</tr>
+							</xsl:if>
+							<xsl:if test="notification_data/resource_sharing_request/flat_d/issn != '' ">
+								<tr>
+									<td>ISSN: <xsl:value-of select="/notification_data/resource_sharing_request/flat_d/issn"/>
+									</td>
+								</tr>
+							</xsl:if>
+							<tr>
+								<td>Interlibrary Loan Request ID: <xsl:value-of select="notification_data/external_request_id"/>
 								</td>
 							</tr>
 							<xsl:if test="((notification_data/download_url_local != '' ) or (notification_data/download_url_saml != '') or (notification_data/download_url_cas != ''))">
 								<tr>
-									<td>@@to_see_the_resource@@</td>
+									<td/>
+								</tr>
+								<tr>
+									<td><b>@@to_see_the_resource@@</b></td>
+								</tr>
+							</xsl:if>
+							<xsl:if test="notification_data/download_url_cas != ''">
+								<tr>
+									<td>&#160;&#160;&#160;&#160;&#160;For <a>
+											<xsl:attribute name="href">
+												<xsl:value-of select="notification_data/download_url_cas"/>
+											</xsl:attribute>@@for_cas_users@@</a>
+									</td>
 								</tr>
 							</xsl:if>
 							<xsl:if test="notification_data/download_url_local != ''">
 								<tr>
-									<td>@@for_local_users@@<a>
+									<td>&#160;&#160;&#160;&#160;&#160;For <a>
 											<xsl:attribute name="href">
 												<xsl:value-of select="notification_data/download_url_local"/>
-											</xsl:attribute>@@click_here@@</a>
+											</xsl:attribute>@@for_local_users@@</a>
 									</td>
 								</tr>
 							</xsl:if>
 							<xsl:if test="notification_data/download_url_saml != ''">
 								<tr>
-									<td>@@for_saml_users@@<a>
+									<td>&#160;&#160;&#160;&#160;&#160;For <a>
 											<xsl:attribute name="href">
 												<xsl:value-of select="notification_data/download_url_saml"/>
-											</xsl:attribute>@@click_here@@</a>
-									</td>
-								</tr>
-							</xsl:if>
-							<xsl:if test="notification_data/download_url_cas != ''">
-								<tr>
-									<td>@@for_cas_users@@<a>
-											<xsl:attribute name="href">
-												<xsl:value-of select="notification_data/download_url_cas"/>
-											</xsl:attribute>@@click_here@@</a>
+											</xsl:attribute>@@for_saml_users@@</a>
 									</td>
 								</tr>
 							</xsl:if>
 							<xsl:choose>
 								<xsl:when test="notification_data/borrowing_document_delivery_max_num_of_views != ''">
 									<tr>
-										<td>@@max_num_of_views@@ <xsl:value-of select="notification_data/borrowing_document_delivery_max_num_of_views"/>.</td>
+										<td/>
+									</tr>
+									<tr>
+										<td>Please note the following time constraints:</td>
+									</tr>
+									<tr>
+										<td>@@max_num_of_views@@ <!-- <xsl:value-of select="notification_data/borrowing_document_delivery_max_num_of_views"/>.-->
+										</td>
 									</tr>
 								</xsl:when>
 								<xsl:when test="(notification_data/request/document_delivery_max_num_of_views != '') and ((notification_data/download_url_local != '' ) or (notification_data/download_url_saml != '') or (notification_data/download_url_cas != ''))">
 									<tr>
-										<td>@@max_num_of_views@@ <xsl:value-of select="notification_data/request/document_delivery_max_num_of_views"/>.</td>
+										<td>Please note the following time constraints:</td>
+									</tr>
+									<tr>
+										<td>@@max_num_of_views@@ <!--<xsl:value-of select="notification_data/request/document_delivery_max_num_of_views"/>.-->
+										</td>
 									</tr>
 								</xsl:when>
 							</xsl:choose>
@@ -108,6 +275,15 @@
 								</xsl:for-each>
 							</xsl:if>
 							<tr>
+								<td/>
+							</tr>
+							<tr>
+								<td>If you have any questions or concerns about what you have received, please reach out to us directly at: cuy-library@berkeley.edu</td>
+							</tr>
+							<tr>
+								<td/>
+							</tr>
+							<tr>
 								<td>@@sincerely@@<br/>
 								</td>
 							</tr>
@@ -116,10 +292,10 @@
 							</tr>
 							<tr>
 								<xsl:choose>
-									<xsl:when test="/notification_data/organization_unit/name = 'Northern Regional Library Facility' ">
+									<xsl:when test="/notification_data/organization_unit/name = 'Systemwide Library Facility - North (SLF-N)' ">
 										<td>
 											
-												Northern Regional Library Facility
+												Systemwide Library Facility - North (SLF-N)
 											
 										</td>
 										<tr>
@@ -133,37 +309,36 @@
 									<xsl:otherwise>
 										<td>		
 											
-												Interlibrary Services
+												Borrowing Services
 											
 											
 										</td>
 										<tr>
 											<td>
-												lending-library@berkeley.edu
+												cuy-library@berkeley.edu
 											</td>
 										</tr>
 										<tr>
 											<td>
-												510-642-7367
+												510-642-7365
 												
 											</td>
 										</tr>
 									</xsl:otherwise>
 								</xsl:choose>
 							</tr>
-										<tr>
-											<td>
+							<tr>
+								<td>
 												
 												
 											</td>
-										</tr>
-										<tr>
-											<td>
+							</tr>
+							<tr>
+								<td>
 												Library Hours: http://www.lib.berkeley.edu/hours
 												
 											</td>
-										</tr>
-
+							</tr>
 						</table>
 					</div>
 				</div>
